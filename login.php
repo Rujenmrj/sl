@@ -14,26 +14,40 @@ session_start();
 if(isset($_POST["login"])){
     //capturing the forms data
     $uname=$_POST["username"];
-    $upass=$_POST["password"];
+    $up=$_POST["password"];
+    $upass=md5($_POST["password"]);
     $remember=$_POST["remember"];
     if(!empty($uname) AND !empty($upass))
     {
-        if(strlen($uname)>=5){
-            if($uname=="admin" && $upass=="admin123"){
+        if(strlen($uname)>=4){
+            //querying the users data to dbdata\
+            $sql = "SELECT * FROM users WHERE username='$uname' AND password='$upass' AND status=1";
+            include("connection.php");
+            $qry=mysqli_query($conn, $sql) or die(mysqli_error($conn));
+            //counting the affected rows\
+            $count=mysqli_num_rows($qry);
+            if($count==1)
+                while($row=mysqli_fetch_array($qry)){
+                    $usrname=$row['username'];
+                    $pwd=$row['password'];
+                    $role=$row['role'];
                 //setting the username and password cookie
                 setcookie("username", $uname, time()+60*60*24*15,"/");
-                setcookie("password", $upass, time()+60*60*24*15,"/");
-
+                setcookie("password", $up, time()+60*60*24*15,"/");
                 //redirect to admin/dashboard.php
-
                 $_SESSION["username"]=$uname;
                 $_SESSION["accesstime"]=date("YmdhisaD");
+                if("admin"=="$role" ){
                 header("Location:admin/dashboard.php");
             }
             else{
-                echo "Creadential not match";
+                header("Location:user/dashboard.php");
             }
+
+                }
+
         }
+        
         else{
             echo "Username must be greater than or equal 5 char";
         }
