@@ -23,6 +23,19 @@ if(isset($_GET['id'])&isset($_GET['action']))
     switch($action){
         case 'edit':{
             echo "You are editing the record.,";
+            $sql = "SELECT * FROM users where id=$id";
+            include("../connection.php");
+            $qry=mysqli_query($conn, $sql);
+            while($row=mysqli_fetch_array($qry)){
+                $uid=$row['id'];
+                $uusername=$row['username'];
+                $uemail=$row['email'];
+                $urole=$row['role'];
+                $ustatus=$row['status'];
+
+                include("inc_updateuser.php");
+
+            }
             break;
         }
         

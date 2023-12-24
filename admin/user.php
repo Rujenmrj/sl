@@ -12,6 +12,9 @@ include("session.php");
     <?php
     include("inc_header.php");
     echo "<h1>All Users</h1>";
+    if(isset($_GET["msg"])){
+        echo "<h3>".$_GET["msg"]."</h3>";
+    }
     echo "<table border=0 cellpadding=5 cellspacing=5>";
     echo "<thead>";
     echo "<tr>";
@@ -37,7 +40,7 @@ include("session.php");
             echo "<td>".$row['email']."</td>";
             echo "<td>".$row['role']."</td>";
             echo "<td>".$row['status']."</td>";
-            echo "<td>EDIT | <a href=editdeleteuser.php?id=".$row['id']."&action=delete>DELETE</a> </td>";
+            echo "<td> <a href=editdeleteuser.php?id=".$row['id']."&action=edit>EDIT</a> | <a href=editdeleteuser.php?id=".$row['id']."&action=delete>DELETE</a> </td>";
             echo "</tr>";
         }
     }
