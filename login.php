@@ -28,6 +28,7 @@ if(isset($_POST["login"])){
             $count=mysqli_num_rows($qry);
             if($count==1)
                 while($row=mysqli_fetch_array($qry)){
+                    $usrid=$row['id'];
                     $usrname=$row['username'];
                     $pwd=$row['password'];
                     $role=$row['role'];
@@ -35,6 +36,7 @@ if(isset($_POST["login"])){
                 setcookie("username", $uname, time()+60*60*24*15,"/");
                 setcookie("password", $up, time()+60*60*24*15,"/");
                 //redirect to admin/dashboard.php
+                $_SESSION["userid"]=$usrid;
                 $_SESSION["username"]=$uname;
                 $_SESSION["accesstime"]=date("YmdhisaD");
                 if("admin"=="$role" ){

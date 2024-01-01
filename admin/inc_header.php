@@ -6,6 +6,6 @@ echo "<hr>";
 echo "<a href=\"dashboard.php\">Dashboard |</a>";
 echo "<a href=\"user.php\">User |</a>";
 echo "<a href=\"category.php\">Category |</a>";
-echo "<a href=\"product.php\">Product |</a>";
+echo "<a href=\"post.php\">Posts |</a>";
 echo "<hr>";
 ?>
